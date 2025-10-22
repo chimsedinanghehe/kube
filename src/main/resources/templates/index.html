@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0078d7;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        main {
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f9fafb;
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border-left: 5px solid #0078d7;
+            border-radius: 6px;
+        }
+
+        li strong {
+            color: #0078d7;
+        }
+
+        form {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #0078d7;
+            outline: none;
+        }
+
+        button {
+            align-self: flex-start;
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+<header>📚 Blog Posts</header>
+
+<main>
+    <h2>All Posts</h2>
+    <ul>
+        <li th:each="post : ${posts}">
+            <strong th:text="${post.title}"></strong>
+            <p th:text="${post.content}" style="margin: 4px 0 0;"></p>
+        </li>
+    </ul>
+
+    <h2>Add New Post</h2>
+    <form th:action="@{/posts}" th:object="${newPost}" method="post">
+        <label>Title:
+            <input type="text" th:field="*{title}" placeholder="Enter post title" />
+        </label>
+        <label>Content:
+            <input type="text" th:field="*{content}" placeholder="Enter post content" />
+        </label>
+        <button type="submit">Add Post</button>
+    </form>
+</main>
+</body>
+</html>
